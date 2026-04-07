@@ -1,0 +1,1494 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEGON - Solana cutest dragon</title>
+    <link rel="icon" type="image/png" href="images/1.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Patrick+Hand&family=Ma+Shan+Zheng&display=swap');
+
+        :root {
+            --bg-main: #bfffa8;
+            --bg-alt: #61fa9e;
+            --text-main: #111111;
+            --border-main: #111111;
+
+            --patch-dark: #FFFFFF;
+            --patch-mid: #61fa9e;
+            --patch-light: #61fa9e;
+            --patch-white: #FFFFFF;
+            --magic-gold: #D19C4C;
+        }
+
+        html,
+        body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: 'Comic Neue', cursive;
+            cursor: crosshair;
+            border: 6px solid var(--border-main);
+            min-height: 100vh;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        @media (min-width: 768px) {
+            body {
+                border-width: 14px;
+            }
+        }
+
+        .font-impact {
+            font-family: 'Patrick Hand', cursive;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .font-mono {
+            font-family: 'Comic Neue', cursive;
+            font-weight: 700;
+        }
+
+        .font-zh-comic {
+            font-family: 'Ma Shan Zheng', cursive;
+        }
+
+        .comic-dots-bg {
+            background-image: radial-gradient(var(--border-main) 2px, transparent 2px);
+            background-size: 24px 24px;
+            opacity: 0.08;
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .comic-stripes-bg {
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(17, 17, 17, 0.06) 10px, rgba(17, 17, 17, 0.06) 20px);
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .comic-polka-bg {
+            background-image: radial-gradient(var(--bg-main) 3px, transparent 3px);
+            background-size: 30px 30px;
+            opacity: 0.15;
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .icon-3d {
+            filter: drop-shadow(4px 4px 0px var(--border-main));
+        }
+
+        @keyframes glitch {
+            0% {
+                transform: translate(0) rotate(0deg)
+            }
+
+            25% {
+                transform: translate(-3px, 3px) rotate(-2deg)
+            }
+
+            50% {
+                transform: translate(0px, -3px) rotate(2deg)
+            }
+
+            75% {
+                transform: translate(3px, 3px) rotate(0deg)
+            }
+
+            100% {
+                transform: translate(0) rotate(0deg)
+            }
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        @keyframes bounceComic {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+                filter: drop-shadow(8px 8px 0px var(--border-main));
+            }
+
+            50% {
+                transform: translateY(-10px) scale(1.02);
+                filter: drop-shadow(14px 14px 0px var(--border-main));
+            }
+        }
+
+        .animate-glitch:hover {
+            animation: glitch 0.2s infinite alternate;
+        }
+
+        .animate-marquee {
+            animation: marquee 15s linear infinite;
+            display: flex;
+            width: max-content;
+        }
+
+        .comic-bounce {
+            animation: bounceComic 3s ease-in-out infinite;
+        }
+
+        .brutal-box {
+            border: 5px solid var(--border-main) !important;
+            border-radius: 40px 10px 40px 10px / 10px 40px 10px 40px !important;
+            box-shadow: 6px 6px 0px var(--border-main) !important;
+            background-color: var(--patch-dark);
+            color: var(--text-main);
+            transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            z-index: 10;
+        }
+
+        @media (min-width: 768px) {
+            .brutal-box {
+                border-radius: 255px 15px 225px 15px/15px 225px 15px 255px !important;
+                box-shadow: 8px 8px 0px var(--border-main) !important;
+            }
+        }
+
+        .brutal-box:hover {
+            transform: translate(-4px, -4px) rotate(-1deg);
+            box-shadow: 12px 12px 0px var(--patch-light) !important;
+        }
+
+        .action-btn {
+            background: var(--patch-white);
+            border: 5px solid var(--border-main);
+            border-radius: 255px 25px 225px 25px/25px 225px 25px 255px;
+            color: var(--text-main);
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.2rem;
+            padding: 0.6rem 1.5rem;
+            position: relative;
+            transition: all 0.2s;
+            cursor: pointer;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-decoration: none;
+            box-shadow: 6px 6px 0px var(--border-main);
+            font-weight: bold;
+        }
+
+        .action-btn:hover {
+            background: var(--magic-gold);
+            color: var(--text-main);
+            transform: translate(-4px, -4px) scale(1.02);
+            box-shadow: 10px 10px 0px var(--border-main);
+        }
+
+        .action-btn.invert {
+            background: var(--patch-light);
+            color: var(--patch-white);
+        }
+
+        .action-btn.invert:hover {
+            background: var(--magic-gold);
+            color: var(--text-main);
+        }
+
+        .marquee-strip {
+            background: var(--magic-gold);
+            border-top: 6px solid var(--border-main);
+            border-bottom: 6px solid var(--border-main);
+            color: var(--text-main);
+            font-family: 'Patrick Hand', cursive;
+            box-shadow: 0 8px 0px var(--border-main);
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+            border: 3px solid var(--border-main);
+            background: var(--bg-main);
+            border-radius: 40px 10px 40px 10px / 10px 40px 10px 40px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        @media (min-width: 768px) {
+            .image-container {
+                border-radius: 255px 25px 225px 25px/25px 225px 25px 255px;
+            }
+        }
+
+        .image-container img.main-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            mix-blend-mode: multiply;
+            transform: scale(1.1);
+        }
+
+        /* Speech Bubble */
+        .speech-bubble {
+            position: relative;
+            background: #fff;
+            border: 5px solid #111;
+            border-radius: 50px;
+            padding: 15px 25px;
+            box-shadow: 6px 6px 0 #111;
+            display: inline-block;
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50px;
+            border-width: 20px 20px 0 0;
+            border-style: solid;
+            border-color: #fff transparent transparent transparent;
+            z-index: 2;
+        }
+
+        .speech-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: -26px;
+            left: 47px;
+            border-width: 24px 24px 0 0;
+            border-style: solid;
+            border-color: #111 transparent transparent transparent;
+            z-index: 1;
+        }
+
+        .text-shadow-hard {
+            text-shadow: 4px 4px 0px var(--patch-light);
+        }
+
+        .text-shadow-white {
+            text-shadow: 3px 3px 0px var(--patch-white);
+        }
+
+        .text-shadow-gold {
+            text-shadow: 4px 4px 0px var(--magic-gold);
+        }
+
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+            padding: 10px;
+        }
+
+        @media (min-width: 768px) {
+            .gallery-container {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 30px;
+                padding: 20px;
+            }
+        }
+
+        .gallery-card {
+            background: white;
+            border: 5px solid var(--border-main);
+            padding: 15px;
+            padding-bottom: 40px;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            box-shadow: 10px 10px 0px var(--border-main);
+        }
+
+        .gallery-card:hover {
+            transform: scale(1.05) rotate(0deg) !important;
+            z-index: 50;
+            box-shadow: 20px 20px 0px var(--magic-gold);
+        }
+
+        .gallery-card img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border: 4px solid var(--border-main);
+            background: #F4EAE0;
+            mix-blend-mode: multiply;
+        }
+
+        .gallery-card::after {
+            content: 'PEGON_FILE.EXE';
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.2rem;
+            color: var(--patch-light);
+            opacity: 0.6;
+        }
+
+        .gallery-card.tilt-left {
+            transform: rotate(-3deg);
+        }
+
+        .gallery-card.tilt-right {
+            transform: rotate(3deg);
+        }
+
+        .gallery-card.tilt-deep-left {
+            transform: rotate(-6deg);
+        }
+
+        .gallery-card.tilt-deep-right {
+            transform: rotate(6deg);
+        }
+
+        .gallery-card.color-1 {
+            background-color: #FFFFFF;
+        }
+
+        .gallery-card.color-2 {
+            background-color: #EBDDCB;
+        }
+
+        .gallery-card.color-3 {
+            background-color: #F4EAE0;
+        }
+
+        .buy-link-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .buy-link-btn {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 20px;
+            background: #FFFFFF;
+            border: 4px solid var(--border-main);
+            box-shadow: 5px 5px 0px var(--border-main);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.4rem;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .buy-link-btn:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 8px 8px 0px var(--magic-gold);
+            background: var(--bg-main);
+        }
+
+        .buy-link-btn img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .music-btn {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            z-index: 100;
+            width: 70px;
+            height: 70px;
+            background: var(--magic-gold);
+            border: 5px solid var(--border-main);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 8px 8px 0px var(--border-main);
+            transition: all 0.2s;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.1) rotate(12deg);
+            background: var(--patch-white);
+        }
+
+        .music-btn.muted {
+            filter: grayscale(1);
+            opacity: 0.8;
+        }
+
+        .music-playing {
+            animation: bounceComic 1s infinite alternate;
+        }
+    </style>
+</head>
+
+<body>
+    <audio id="bg-music" src="media/public_doin.mp3" loop=""></audio>
+    <button id="music-btn" class="music-btn icon-3d">
+        <span class="text-3xl">🎵</span>
+    </button>
+
+    <nav class="absolute top-[14px] left-[14px] w-[calc(100%-28px)] z-50 p-4 border-b-[6px] border-[#111111] bg-[#F4EAE0] overflow-hidden">
+        <div class="comic-dots-bg"></div>
+        <div class="max-w-7xl mx-auto w-full flex justify-between items-center relative z-10">
+
+            <a href="#" class="flex items-center gap-4 group animate-glitch">
+                <div class="w-16 h-16 bg-[#D19C4C] flex items-center justify-center border-[5px] border-[#111111] icon-3d" style="border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;">
+                    <span class="font-zh-comic text-4xl text-[#111111] font-bold transform -rotate-6">$</span>
+                </div>
+                <span class="font-zh-comic text-4xl md:text-5xl text-[#111111] tracking-wide text-shadow-white font-bold">Pegon</span>
+            </a>
+
+            <div class="hidden md:flex gap-6 items-center bg-[#FFFFFF] px-8 py-3 border-[5px] border-[#111111] icon-3d" style="border-radius: 15px 255px 15px 225px/255px 15px 225px 15px;">
+                <a href="#about" class="text-[#111111] hover:text-[#D19C4C] hover:underline font-impact text-xl uppercase">
+                    Lore</a>
+                <a href="#ai-generator" class="text-[#111111] hover:text-[#D19C4C] hover:underline font-impact text-xl uppercase">
+                Armory</a>
+                <a href="#tokenomics" class="text-[#111111] hover:text-[#D19C4C] hover:underline font-impact text-xl uppercase">Tokenomics</a>
+                <a href="#how-to-buy" class="text-[#111111] hover:text-[#D19C4C] hover:underline font-impact text-xl uppercase">How To
+                    Buy</a>
+                <a href="#live-chart" class="text-[#111111] hover:text-[#D19C4C] hover:underline font-impact text-xl uppercase">
+                    Chart</a>
+                <a href="#gallery" class="text-[#111111] hover:text-[#D19C4C] hover:underline font-impact text-xl uppercase">Gallery</a>
+            </div>
+
+            <div class="hidden md:flex gap-4 items-center">
+                <button id="lang-btn" onclick="toggleLang()" class="action-btn text-base px-4 py-2 !bg-[#111111] !text-[#FFFFFF] hover:!bg-[#D19C4C] hover:!text-[#111111] font-zh-comic tracking-widest" title="Switch Language">KEEP SMILE</button>
+                <a href="https://x.com/pegoncoinsol" target="_blank" class="action-btn text-base px-6 py-2">
+                    X
+                </a>
+                <a href="https://t.me/pegoncoinportal" target="_blank" class="action-btn text-base px-6 py-2">
+                    TELEGRAM
+                </a>
+            </div>
+
+            <button id="menu-btn" class="md:hidden text-[#111111] text-4xl p-2 bg-[#D19C4C] border-[5px] border-[#111111] icon-3d" style="border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;">
+                ☰
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="fixed inset-0 bg-[#4A4B46] z-40 hidden flex-col items-center justify-center border-l-8 border-[#111111]">
+            <div class="comic-polka-bg"></div>
+            <ul class="flex flex-col gap-8 text-center font-impact text-5xl relative z-10 text-[#FFFFFF]">
+                <li><a href="#about" class="menu-link hover:line-through block hover:text-[#D19C4C]" data-en="THE LORE" data-zh="故事传说">THE LORE</a></li>
+                <li><a href="#live-chart" class="menu-link hover:line-through block hover:text-[#D19C4C]" data-en="LIVE CHART" data-zh="实时图表">LIVE CHART</a>
+                </li>
+                <li><a href="#tokenomics" class="menu-link hover:line-through block hover:text-[#D19C4C]" data-en="TOKENOMICS" data-zh="代币经济">TOKENOMICS</a>
+                </li>
+                <li><a href="#how-to-buy" class="menu-link hover:line-through block hover:text-[#D19C4C]" data-en="HOW TO BUY" data-zh="如何购买">HOW TO BUY</a>
+                </li>
+                <li><a href="#ai-generator" class="menu-link hover:line-through block hover:text-[#D19C4C]" data-en="THE ARMORY" data-zh="图像工坊">THE
+                        ARMORY</a></li>
+                <li><a href="#gallery" class="menu-link hover:line-through block hover:text-[#D19C4C]" data-en="GALLERY" data-zh="表情包图库">GALLERY</a></li>
+                <li>
+                    <button onclick="toggleLang()" class="action-btn !text-2xl mt-2 block !bg-[#D19C4C] !text-[#111111] font-zh-comic w-full">EN / 中文</button>
+                </li>
+                <li><a href="https://x.com/pegoncoinsol" target="_blank" class="action-btn !text-3xl mt-6 block !bg-[#111111] !text-[#FFFFFF]">X</a></li>
+                <li><a href="https://t.me/pegoncoinportal" target="_blank" class="action-btn !text-3xl mt-2 block !bg-[#D19C4C] !text-[#111111]">TELEGRAM</a></li>
+            </ul>
+            <button id="close-menu" class="absolute top-8 right-8 text-[#111111] text-5xl bg-[#FFFFFF] w-16 h-16 border-[5px] border-[#111111] flex items-center justify-center hover:bg-[#D19C4C] icon-3d" style="border-radius: 50%;">X</button>
+        </div>
+    </nav>
+
+    <header class="relative z-10 min-h-screen pt-32 pb-20 md:pt-40 px-4 overflow-hidden flex items-center justify-center bg-[#F4EAE0]">
+        <div class="comic-dots-bg"></div>
+
+        <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-20">
+
+            <div class="text-center lg:text-left order-2 lg:order-1 relative">
+
+                <div class="speech-bubble mb-8 transform -rotate-3 animate-glitch inline-block">
+                    <h2 class="font-zh-comic text-5xl md:text-7xl text-[#D19C4C] font-bold text-shadow-hard leading-none m-0 p-0">
+                        It's pegon :)
+                    </h2>
+                </div>
+
+                <h1 id="hero-title" class="font-impact text-5xl md:text-6xl lg:text-7xl leading-[1] mb-6 text-[#111111] text-shadow-white relative z-10" data-en="WHAT THE DOG <br><span class='text-[#D19C4C] text-shadow-hard'>DOING?!</span>" data-zh="狗在做什么 <br><span class='text-[#D19C4C] text-shadow-hard'>我的刀盾！</span>">
+                    WHAT THE DRAGON <br><span class="text-[#D19C4C] text-shadow-hard">DOING?!</span>
+                </h1>
+
+                <p class="font-mono text-[#111111] text-lg md:text-xl mb-8 max-w-lg p-5 md:p-6 brutal-box bg-[#FFFFFF] leading-relaxed text-left border-dashed" data-en="<strong class='text-[#4A4B46] font-black text-2xl'>My Sword. My Shield. My Dog.</strong><br>The legendary internet brainrot meme born from a misheard translation." data-zh="<strong class='text-[#4A4B46] font-black text-2xl'>我的刀。我的盾。我的狗。</strong><br>这个传奇的网络梗，源自一次误听的翻译。">
+                    <strong class="text-[#4A4B46] font-black text-2xl">Pegon 🐉✨</strong><br>
+                     - the cutest Solana dragon memecoin, driven by community, memes, and a mission to fly to the moon 🚀.
+                </p>
+
+                <div class="flex flex-col gap-4 max-w-lg mx-auto lg:mx-0 mb-10">
+                    <div class="relative group p-2 md:p-3 brutal-box bg-[#EBDDCB] transform rotate-1">
+                        <div class="flex items-center">
+                            <span class="bg-[#4A4B46] text-[#FFFFFF] font-impact text-xl md:text-2xl px-3 md:px-5 py-2 mr-2 md:mr-3 border-[4px] border-[#111111] icon-3d" style="border-radius: 10px;">CA</span>
+                            <code class="font-mono text-[#111111] font-bold text-xs md:text-lg tracking-wide w-full truncate bg-[#FFFFFF] px-2 md:px-3 py-3 border-[3px] border-[#111111] rounded-md shadow-inner">xxxxxxxxxxxxxxxxxxxxxxxx</code>
+                            <button onclick="copyCA()" class="ml-2 md:ml-3 px-4 md:px-6 py-3 bg-[#D19C4C] font-impact text-lg md:text-xl text-[#111111] hover:bg-[#4A4B46] hover:text-[#FFFFFF] border-[4px] border-[#111111] transition-all icon-3d" style="border-radius: 12px;">
+                                COPY
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap justify-center lg:justify-start gap-6">
+                    <a href="https://pump.fun" target="_blank" class="action-btn !text-2xl !py-4" data-en="BUY TOKEN" data-zh="购买代币">
+                        BUY TOKEN
+                        <svg class="icon-3d" width="28" height="28" viewBox="0 0 24 24" fill="#D19C4C" stroke="#111" stroke-width="2">
+                            <path d="M12 2L15 9L22 9L16 14L18 21L12 17L6 21L8 14L2 9L9 9Z"></path>
+                        </svg>
+                    </a>
+                    <a href="https://x.com/pegoncoinsol" target="_blank" class="action-btn invert !text-2xl !py-4" data-en="FOLLOW X" data-zh="表情包仓库">FOLLOW X</a>
+                </div>
+            </div>
+
+            <div class="relative order-1 lg:order-2 flex justify-center mt-10 lg:mt-0 comic-bounce">
+                <div class="absolute -top-10 -right-10 font-zh-comic text-[12rem] text-[#D19C4C] opacity-30 transform rotate-12 pointer-events-none z-0">
+                    盾</div>
+
+                <div class="image-container transform rotate-3 bg-[#F4EAE0] z-10 icon-3d">
+                    <img src="images/test.gif" alt="What the Dog Doing" class="main-img border-b-[6px] border-[#111111]">
+
+                    <div class="p-6 text-center border-t-[5px] border-[#111111] bg-[#4A4B46]">
+                        <span class="text-[#D19C4C] font-zh-comic text-4xl tracking-widest font-bold text-shadow-white">
+                            Mr. Pegon
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="marquee-strip overflow-hidden py-4 relative z-20 md:transform md:-rotate-2 w-full md:w-[105%] md:-ml-2">
+        <div class="flex whitespace-nowrap overflow-hidden">
+            <div class="animate-marquee items-center font-black">
+                <span class="mx-8 text-4xl flex items-center gap-6 text-[#111111]">WHAT THE PEGON DOING</span>
+                <span class="mx-8 font-zh-comic text-5xl flex items-center gap-6 text-[#FFFFFF] text-shadow-hard">$Pegon</span>
+                <span class="mx-8 text-4xl flex items-center gap-6 text-[#111111]">THE CUTEST SOLANA DRAGON</span>
+                <span class="mx-8 font-zh-comic text-5xl flex items-center gap-6 text-[#FFFFFF] text-shadow-hard">$Pegon</span>
+                <span class="mx-8 text-4xl flex items-center gap-6 text-[#111111]">WHAT THE PEGON DOING</span>
+                <span class="mx-8 font-zh-comic text-5xl flex items-center gap-6 text-[#FFFFFF] text-shadow-hard">$Pegon</span>
+                <span class="mx-8 text-4xl flex items-center gap-6 text-[#111111]">THE CUTEST SOLANA DRAGON</span>
+                <span class="mx-8 font-zh-comic text-5xl flex items-center gap-6 text-[#FFFFFF] text-shadow-hard">$Pegon</span>
+            </div>
+        </div>
+    </div>
+
+    <section id="about" class="relative z-10 py-16 md:py-32 bg-[#66d488] border-b-[6px] border-[#111111] overflow-hidden">
+        <div class="comic-stripes-bg"></div>
+        <div class="max-w-7xl mx-auto px-4 md:px-6 relative z-20">
+
+            <div class="flex flex-col items-center mb-16">
+                <div class="py-3 px-8 md:py-4 md:px-12 brutal-box bg-[#FFFFFF] transform -rotate-2 text-center">
+                    <h2 class="font-impact text-3xl md:text-6xl text-[#111111] tracking-widest text-shadow-gold" data-en="THE LORE OF THE DOG" data-zh="狗的传说">
+                        THE LORE OF THE DRAGON
+                    </h2>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
+                <div class="image-container transform -rotate-3 bg-[#F4EAE0] p-2 md:p-4 icon-3d">
+                    <img src="images/1.gif" alt="Dog Meme Lore" class="main-img border-[4px] border-[#111111] rounded-xl">
+                </div>
+
+                <div class="relative p-4 md:p-12 brutal-box bg-[#FFFFFF] text-[#111111] icon-3d">
+                    <div class="absolute -top-4 -right-4 md:-top-8 md:-right-8 text-xs md:text-2xl font-impact bg-[#D19C4C] text-[#111111] p-2 md:p-4 border-[3px] md:border-[5px] border-[#111111] shadow-[3px_3px_0_#111111] md:shadow-[6px_6px_0_#111111] transform rotate-6" style="border-radius: 50%;">
+                        LORE.TXT
+                    </div>
+
+                    <h3 class="font-zh-comic text-3xl md:text-6xl mb-2 md:mb-4 text-[#D19C4C] border-b-[3px] md:border-b-[5px] border-[#111111] pb-2 md:pb-4 text-shadow-hard">
+                        PEGON LORE
+                    </h3>
+                    <h4 class="font-impact text-lg md:text-3xl mb-3 md:mb-6 text-[#4A4B46] uppercase">
+                        "What the dragon doing?"
+                    </h4>
+
+                    <div class="font-mono text-sm md:text-xl font-bold leading-relaxed space-y-3 md:space-y-6 text-[#222222]">
+                        <p>
+                            Here’s a short and unique lore for <span class="bg-[#D19C4C] px-2 border-2 border-[#111]">“PEGON 🐉✨
+                                ”</span>
+
+---
+
+In the early days of the Solana realm, when blocks moved at the speed of light, a tiny dragon named **Pegon** was born from pure digital energy. Unlike ancient dragons of fire and chaos, Pegon carried a different power—joy, unity, and unstoppable momentum.
+
+Though small and adorable, Pegon possessed a rare ability: to turn belief into growth and community into strength. Wherever Pegon flew, people gathered—not for fear, but for fun, hope, and a shared dream.
+
+Now, Pegon soars across the blockchain, proving that even the cutest dragon can spark the biggest movement 🚀🐉✨
+
+                        </p>
+                        <p>
+                            But then, the Solana meme culture remixed it! People started seeing Pegon not just as a cute dragon, but as something more… <br>
+                            <span class="font-zh-comic text-4xl text-[#4A4B46] block mt-2 text-center">A tiny guardian of the chain—small, adorable, yet unstoppable.</span>
+                        </p>
+                        <blockquote class="border-l-[6px] md:border-l-[10px] border-[#D19C4C] pl-3 md:pl-6 italic text-[#111111] bg-[#F4EAE0] p-3 md:p-6 border-y-[3px] md:border-y-[4px] border-r-[3px] md:border-r-[4px] border-[#111111] text-sm md:text-2xl" style="border-radius: 12px;">
+                            In this new lore, Pegon became a symbol of: 👉 “Cute power, strong community.”
+                        </blockquote>
+                        <p>
+                            Thanks to this evolution, the meme transformed into a wholesome dragon leading a movement—pure Web3 magic! 🐉✨🚀
+                        </p>
+
+                        <div class="buy-link-wrap">
+                            <a href="https://pump.fun/coin/" target="_blank" class="buy-link-btn">
+                                <img src="images/pumpfun.png" alt="Pump.fun">
+                                Buy on Pump.fun
+                            </a>
+                            <a href="https://moonshot.money/" target="_blank" class="buy-link-btn">
+                                <img src="images/moonshot.png" alt="Moonshot">
+                                Buy on Moonshot
+                            </a>
+                            <a href="https://fomo.family/token/" target="_blank" class="buy-link-btn">
+                                <img src="images/fomo.webp" alt="Fomo.family">
+                                Buy on Fomo.family
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <div class="marquee-strip overflow-hidden py-4 relative z-20 md:transform md:rotate-2 w-full md:w-[105%] md:-ml-2 mb-[-30px]">
+        <div class="flex whitespace-nowrap overflow-hidden">
+            <div class="animate-marquee items-center font-black">
+                <span class="mx-8 text-4xl flex items-center gap-6 text-[#111111]">SMALL DRAGON, BIG DREAMS</span>
+                <span class="mx-8 font-zh-comic text-5xl flex items-center gap-6 text-[#FFFFFF] text-shadow-hard">$PEGON</span>
+                <span class="mx-8 text-4xl flex items-center gap-6 text-[#111111]">CUTE POWER, REAL MOMENTUM</span>
+                <span class="mx-8 font-zh-comic text-5xl flex items-center gap-6 text-[#FFFFFF] text-shadow-hard">$PEGON</span>
+                <span class="mx-8 text-4xl flex items-center gap-6 text-[#111111]">SMALL DRAGON, BIG DREAMS</span>
+                <span class="mx-8 font-zh-comic text-5xl flex items-center gap-6 text-[#FFFFFF] text-shadow-hard">$PEGON</span>
+                <span class="mx-8 text-4xl flex items-center gap-6 text-[#111111]">CUTE POWER, REAL MOMENTUM</span>
+                <span class="mx-8 font-zh-comic text-5xl flex items-center gap-6 text-[#FFFFFF] text-shadow-hard">$PEGON</span>
+            </div>
+        </div>
+    </div>
+
+
+    <section id="meme-breakdown" class="relative z-10 py-16 md:py-32 bg-[#F4EAE0] border-b-[6px] border-[#111111] overflow-hidden">
+        <div class="comic-dots-bg"></div>
+        <div class="max-w-7xl mx-auto px-4 md:px-6 relative z-20">
+
+            <div class="flex flex-col items-center mb-16">
+                <div class="py-3 px-6 md:py-4 md:px-12 brutal-box bg-[#D19C4C] transform rotate-1 text-center">
+                    <h2 id="meme-explained-title" class="font-impact text-3xl sm:text-4xl md:text-6xl text-[#111111] tracking-widest text-shadow-white">
+                        $PEGON MEME EXPLAINED
+                    </h2>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+
+                <div class="brutal-box bg-[#FFFFFF] p-4 md:p-8 flex flex-col justify-between transform hover:rotate-1">
+                    <div>
+                        <div class="w-10 h-10 md:w-12 md:h-12 bg-[#D19C4C] text-[#111] font-impact text-2xl md:text-3xl flex items-center justify-center border-[3px] md:border-[4px] border-[#111] rounded-full mb-3 md:mb-4 icon-3d">
+                            1</div>
+                        <h3 class="font-impact text-lg md:text-2xl mb-2 md:mb-3 text-[#4A4B46] uppercase border-b-[2px] md:border-b-[3px] border-[#111] pb-1 md:pb-2 border-dashed">
+                            The Original Meme (Pegon Era) 🐉✨</h3>
+                        <p class="font-mono text-xs md:text-lg font-bold text-[#222]">
+                            The phrase <span class="bg-[#D19C4C] px-1 border-2 border-[#111]">“What the dragon doing?”</span> was born from early Pegon meme culture, where people saw the tiny dragon doing random, adorable things across the Solana chain. Instead of asking properly, the community embraced the chaotic and cute energy with the intentionally broken phrase: “What the dragon doing?”
+                        </p>
+                    </div>
+                    <div class="mt-2 md:mt-4 p-2 md:p-4 bg-[#F4EAE0] border-[2px] md:border-[3px] border-[#111] rounded-xl font-mono text-xs md:text-base font-bold italic">
+                        The playful grammar made it instantly funny, and it quickly spread as a reaction meme whenever Pegon appeared doing something unexpected—turning simple moments into pure meme magic 🚀🐉
+                    </div>
+                </div>
+
+                <div class="brutal-box bg-[#F4EAE0] p-4 md:p-8 flex flex-col justify-between transform -rotate-1 lg:col-span-2">
+                    <div>
+                        <div class="w-12 h-12 bg-[#D19C4C] text-[#111] font-impact text-3xl flex items-center justify-center border-[4px] border-[#111] rounded-full mb-4 icon-3d">
+                            2</div>
+                        <h3 class="font-impact text-2xl mb-3 text-[#4A4B46] uppercase border-b-[3px] border-[#111] pb-2 border-dashed">
+                            The Solana Meme Twist: <span class="font-zh-comic text-3xl text-[#111]">Pegon Energy 🐉✨</span>
+                        </h3>
+                        <p class="font-mono text-xs md:text-lg font-bold text-[#222] mb-2 md:mb-4">
+                            Later, the meme evolved within the Pegon community. People began to reinterpret Pegon not just as a cute dragon, but as a symbol of hidden strength and unity. The idea transformed into: 👉  <span class="text-[#D19C4C] text-xl">“Cute outside, powerful inside.”</span>
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-4 text-center mt-4">
+                        <div class="bg-[#FFFFFF] p-3 border-[3px] border-[#111] rounded-lg icon-3d">
+                            <span class="block text-[#4A4B46] font-impact text-xl">CUTE</span>
+                            <span class="block font-zh-comic text-3xl text-[#111]">charm</span>
+                        </div>
+                        <div class="bg-[#FFFFFF] p-3 border-[3px] border-[#111] rounded-lg icon-3d">
+                            <span class="block text-[#4A4B46] font-impact text-xl">SMALL</span>
+                            <span class="block font-zh-comic text-3xl text-[#111]">speed</span>
+                        </div>
+                        <div class="bg-[#FFFFFF] p-3 border-[3px] border-[#111] rounded-lg icon-3d">
+                            <span class="block text-[#4A4B46] font-impact text-xl">DRAGON</span>
+                            <span class="block font-zh-comic text-3xl text-[#111]">strength</span>
+                        </div>
+                    </div>
+                    <p class="font-mono text-sm font-bold text-[#444] mt-3 text-center">This shift happened through creative meme culture—where simple visuals gained deeper meaning through community imagination. What started as pure cuteness became a symbol of power on the Solana chain 🚀✨</p>
+                </div>
+
+                <div class="brutal-box bg-[#FFFFFF] p-4 md:p-8 flex flex-col justify-between transform rotate-2">
+                    <div>
+                        <div class="w-12 h-12 bg-[#D19C4C] text-[#111] font-impact text-3xl flex items-center justify-center border-[4px] border-[#111] rounded-full mb-4 icon-3d">
+                            3</div>
+                        <h3 class="font-impact text-2xl mb-3 text-[#4A4B46] uppercase border-b-[3px] border-[#111] pb-2 border-dashed">
+                            The Modern Version (Pegon Era 2025–26) 🐉✨</h3>
+                        <p class="font-mono text-xs md:text-lg font-bold text-[#222]">
+                            The meme evolved once again through viral edits, AI-generated content, and the rise of memecoins on Solana—pushing Pegon into a new wave of internet culture.
+                        </p>
+                    </div>
+                    <div class="mt-2 md:mt-4 p-2 md:p-4 bg-[#EBDDCB] border-[2px] md:border-[3px] border-[#111] rounded-xl font-mono text-xs md:text-base font-bold">
+                        <span class="text-[#D19C4C] text-xl">🐉</span> Cute Pegon
+ 
+ <br>
+                        <span class="text-[#4A4B46] text-xl">⚔️</span> Shiny, chaotic vibes<br>
+                        <span class="text-[#111] text-xl">🚀</span> Caption: “To the moon”
+                    </div>
+                </div>
+
+                <div class="brutal-box bg-[#F4EAE0] p-4 md:p-8 flex flex-col justify-between transform -rotate-1">
+                    <div>
+                        <div class="w-12 h-12 bg-[#D19C4C] text-[#111] font-impact text-3xl flex items-center justify-center border-[4px] border-[#111] rounded-full mb-4 icon-3d">
+                            4</div>
+                        <h3 class="font-impact text-2xl mb-3 text-[#4A4B46] uppercase border-b-[3px] border-[#111] pb-2 border-dashed">
+                            Why Pegon Is Funny 🐉✨</h3>
+                        <ul class="font-mono text-xs md:text-lg font-bold text-[#222] space-y-1 md:space-y-3">
+                            <li><span class="text-[#D19C4C] text-xl">1️⃣</span> Cute but chaotic energy.</li>
+                            <li><span class="text-[#D19C4C] text-xl">2️⃣</span> A tiny dragon with unexpectedly big power.</li>
+                            <li><span class="text-[#D19C4C] text-xl">3️⃣</span> Random, wholesome meme vibes mixed with Web3 absurdity. 🚀✨
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="brutal-box bg-[#4A4B46] text-[#FFF] p-4 md:p-8 flex flex-col justify-center items-center text-center transform rotate-1">
+                    <div class="w-16 h-16 bg-[#D19C4C] text-[#111] font-impact text-4xl flex items-center justify-center border-[4px] border-[#111] rounded-full mb-6 icon-3d">
+                        5</div>
+                    <h3 class="font-impact text-xl md:text-3xl mb-2 md:mb-4 text-[#D19C4C] uppercase">How People Actually Use Pegon 🐉✨</h3>
+                    <p class="font-mono text-xs md:text-xl font-bold text-[#FFF]">
+                        People spam it whenever something feels random, chaotic, or just doesn’t make sense—yet somehow still fun.<br><br>
+                        <span class="bg-[#FFF] text-[#111] px-3 py-1 border-[3px] border-[#111] inline-block transform rotate-2">PURE
+                            PURE SOLANA BRAINROT. 🚀</span>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="ai-generator" class="relative z-10 py-16 md:py-32 bg-[#EBDDCB] border-b-[6px] border-[#111111] overflow-hidden">
+        <div class="comic-stripes-bg"></div>
+        <div class="max-w-7xl mx-auto px-4 md:px-6 relative z-20">
+
+            <div class="text-center mb-16">
+                <h2 id="armory-title" class="font-impact text-3xl sm:text-4xl md:text-6xl text-[#111111] bg-[#FFFFFF] inline-block px-4 py-3 md:px-12 md:py-5 transform rotate-2 brutal-box text-shadow-gold">
+                    THE PEGON GENERATOR
+                </h2>
+                <br>
+                <p class="font-mono text-xl text-[#111111] font-bold mt-8 bg-[#D19C4C] inline-block px-8 py-3 border-[5px] border-[#111111] icon-3d" style="border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;">Forge your own Dragon</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-stretch">
+
+                <div class="brutal-box bg-[#FFFFFF] p-10 flex flex-col gap-6">
+                    <div class="text-left font-impact text-2xl font-bold text-[#4A4B46] border-b-[5px] border-[#111111] border-dashed pb-4 uppercase flex items-center gap-3">
+                        <span class="font-zh-comic text-4xl text-[#D19C4C]">刀</span>
+                        Forge_Parameters
+                    </div>
+
+                    <div class="flex justify-center border-b-[5px] border-[#ffffff] pb-8 mb-4 bg-[#ffffff] rounded-xl p-4">
+                        <img src="images/z.jpg" alt="Reference Image" class="max-h-56 w-auto object-contain" style="mix-blend-mode: multiply;">
+                    </div>
+
+                    <div class="bg-[#F4EAE0] border-[5px] border-[#111111] p-4 icon-3d">
+                        <label class="font-impact text-lg text-[#111111] block mb-2">UPLOAD ADDITIONAL IMAGE:</label>
+                        <div class="relative">
+                            <input type="file" id="image-upload" accept="image/*" class="hidden">
+                            <button id="upload-btn" type="button" class="w-full bg-[#D19C4C] text-[#111111] font-impact text-lg py-3 px-4 rounded-lg border-[5px] border-[#111111] hover:bg-[#4A4B46] hover:text-[#FFFFFF] transition-colors flex items-center justify-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                                    </path>
+                                </svg>
+                                UPLOAD
+                            </button>
+                        </div>
+                        <div id="uploaded-preview" class="mt-2 hidden">
+                            <img id="uploaded-img" src="" alt="Uploaded Image" class="w-1/3 h-auto rounded-xl mx-auto border-[3px] border-[#111111]">
+                            <button id="remove-upload" class="mt-2 text-sm font-impact text-red-600 hover:text-red-800">REMOVE</button>
+                        </div>
+                    </div>
+
+                    <div class="flex-grow flex flex-col gap-4">
+                        <label class="font-impact text-3xl text-[#111111]">VISION (PROMPT):</label>
+                        <textarea id="ai-prompt" class="w-full flex-grow bg-[#FAFAFA] text-[#111111] font-mono text-xl p-6 border-[5px] border-[#111111] focus:outline-none focus:border-[#4A4B46] resize-none icon-3d" style="border-radius: 20px 255px 20px 225px/255px 20px 225px 20px;" rows="3" placeholder="A chubby little dragon holding a glowing sword and a tiny shield..."></textarea>
+                    </div>
+
+                    <button id="btn-generate" class="action-btn w-full !py-5 !text-2xl flex justify-center items-center gap-4 text-[#111111] !bg-[#D19C4C] hover:!bg-[#4A4B46] hover:!text-[#FFFFFF]">
+                        FORGE DRAGON
+                        <svg class="icon-3d" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="12" x2="20" y2="20"></line>
+                            <path d="M14 4 L16 8 L20 10 L16 12 L14 16 L12 12 L8 10 L12 8 Z" fill="#FFFFFF"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="brutal-box bg-[#4A4B46] p-10 flex flex-col items-center justify-center min-h-[450px]">
+                    <div class="w-full text-right font-mono text-lg font-bold text-[#D19C4C] mb-auto uppercase">
+                        Dragon_Console.exe
+                    </div>
+
+                    <div id="ai-placeholder" class="text-center my-auto">
+                        <div class="font-zh-comic text-8xl text-[#FFFFFF] mb-6 opacity-20">[x]</div>
+                        <p class="font-mono text-2xl font-bold text-[#F4EAE0]">WAITING FOR PROMPT...</p>
+                    </div>
+
+                    <div id="ai-loading" class="hidden text-center my-auto w-full">
+                        <div class="font-impact text-5xl animate-glitch mb-8 text-[#D19C4C] text-shadow-hard">
+                            FORGING...
+                        </div>
+                        <div class="w-full h-8 bg-[#FFFFFF] mx-auto border-[5px] border-[#111111] overflow-hidden icon-3d" style="border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;">
+                            <div class="h-full bg-[#D19C4C] w-1/2 animate-[marquee_1s_ease-in-out_infinite_alternate] border-r-[5px] border-[#111111]">
+                            </div>
+                        </div>
+                    </div>
+
+                    <img id="ai-result-img" src="" class="hidden w-full h-auto max-h-[400px] object-cover border-[6px] border-[#111111] mt-6 icon-3d" style="border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;">
+                    <button id="btn-download" class="hidden action-btn mt-6 !py-3 !text-xl !bg-[#D19C4C] hover:!bg-[#FFFFFF] w-full">
+                        DOWNLOAD WARRIOR
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="tokenomics" class="relative z-10 py-16 md:py-32 bg-[#4A4B46] border-b-[6px] border-[#111111] overflow-hidden">
+        <div class="comic-polka-bg"></div>
+
+        <div class="max-w-7xl mx-auto px-4 md:px-6 relative z-20">
+            <div class="text-center mb-20">
+                <h2 id="tokenomics-title" class="font-impact text-3xl sm:text-4xl md:text-6xl text-[#111111] bg-[#D19C4C] inline-block px-6 py-4 md:px-12 md:py-5 brutal-box transform rotate-1 text-shadow-white">
+                    TOKENOMICS
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="brutal-box bg-[#FFFFFF] p-4 md:p-10 text-center flex flex-col items-center justify-center transform hover:-rotate-3">
+                    <span class="text-[#D19C4C] font-zh-comic text-5xl mb-2 text-shadow-hard icon-3d">$Pegon</span>
+                    <span class="text-[#4A4B46] font-impact text-2xl font-bold mb-2 uppercase border-b-[4px] border-[#111111] pb-2">Supply</span>
+                    <h3 class="font-impact text-3xl md:text-5xl text-[#111111] mt-2 md:mt-4">100% COMMUNITY</h3>
+                    <p class="font-mono text-xs md:text-lg font-bold text-[#444444] mt-2 md:mt-4">OWNED BY DRAGON</p>
+                </div>
+
+                <div class="brutal-box bg-[#EBDDCB] p-4 md:p-10 text-center flex flex-col items-center justify-center transform scale-105 hover:rotate-2 z-10">
+                    <span class="text-[#D19C4C] font-zh-comic text-6xl mb-2 text-shadow-hard icon-3d">$Pegon</span>
+                    <span class="text-[#4A4B46] font-impact text-2xl font-bold mb-2 uppercase border-b-[4px] border-[#111111] pb-2">Taxes</span>
+                    <h3 class="font-impact text-4xl md:text-6xl text-[#111111] mt-2 md:mt-4">0% / 0%</h3>
+                    <p class="font-mono text-xl font-bold text-[#444444] mt-4 bg-[#FFFFFF] px-4 py-2 border-2 border-[#111] icon-3d">
+                        PURE HODL</p>
+                </div>
+
+                <div class="brutal-box bg-[#FFFFFF] p-4 md:p-10 text-center flex flex-col items-center justify-center transform hover:-rotate-2">
+                    <span class="text-[#D19C4C] font-zh-comic text-5xl mb-2 text-shadow-hard icon-3d">$Pegon</span>
+                    <span class="text-[#4A4B46] font-impact text-2xl font-bold mb-2 uppercase border-b-[4px] border-[#111111] pb-2">Security</span>
+                    <h3 class="font-impact text-3xl md:text-5xl text-[#111111] mt-2 md:mt-4">BURNED</h3>
+                    <p class="font-mono text-xs md:text-lg font-bold text-[#444444] mt-2 md:mt-4">RENOUNCED. NO TRICKS.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-to-buy" class="relative z-10 py-16 md:py-32 bg-[#F4EAE0] overflow-hidden">
+        <div class="comic-dots-bg"></div>
+        <div class="max-w-7xl mx-auto px-4 md:px-6 relative z-20">
+            <div class="flex flex-col items-center mb-20">
+                <div class="py-3 px-6 md:py-4 md:px-12 brutal-box bg-[#D19C4C] transform -rotate-1">
+                    <h2 id="howtobuy-title" class="font-impact text-3xl sm:text-4xl md:text-6xl text-center text-[#111111] tracking-widest text-shadow-white">
+                        HOW TO BUY
+                    </h2>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="brutal-box bg-[#FFFFFF] p-4 md:p-8 relative pt-12 md:pt-16 mt-6">
+                    <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-[#D19C4C] text-[#111111] font-zh-comic text-4xl flex items-center justify-center border-[5px] border-[#111111] shadow-[4px_4px_0_#111111] rounded-full icon-3d">
+                        1</div>
+                    <h4 class="font-impact text-xl md:text-3xl text-[#4A4B46] mb-2 md:mb-4 text-center border-b-[3px] md:border-b-[4px] border-[#111111] border-dashed pb-1 md:pb-2">
+                        WALLET</h4>
+                    <p class="font-mono text-xs md:text-lg font-bold text-[#444444] text-center">Get Phantom or Solflare. Don’t be a dragon without a shield 🐉🛡️✨
+</p>
+                </div>
+                <div class="brutal-box bg-[#EBDDCB] p-4 md:p-8 relative pt-12 md:pt-16 mt-6 transform rotate-2">
+                    <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-[#D19C4C] text-[#111111] font-zh-comic text-4xl flex items-center justify-center border-[5px] border-[#111111] shadow-[4px_4px_0_#111111] rounded-full icon-3d">
+                        2</div>
+                    <h4 class="font-impact text-xl md:text-3xl text-[#4A4B46] mb-2 md:mb-4 text-center border-b-[3px] md:border-b-[4px] border-[#111111] border-dashed pb-1 md:pb-2">
+                        GET SOL</h4>
+                    <p class="font-mono text-xs md:text-lg font-bold text-[#444444] text-center">Buy SOL and send it to your wallet — fuel for Pegon’s flight 🐉✨🚀
+</p>
+                </div>
+                <div class="brutal-box bg-[#FFFFFF] p-4 md:p-8 relative pt-12 md:pt-16 mt-6 transform -rotate-1">
+                    <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-[#D19C4C] text-[#111111] font-zh-comic text-4xl flex items-center justify-center border-[5px] border-[#111111] shadow-[4px_4px_0_#111111] rounded-full icon-3d">
+                        3</div>
+                    <h4 class="font-impact text-xl md:text-3xl text-[#4A4B46] mb-2 md:mb-4 text-center border-b-[3px] md:border-b-[4px] border-[#111111] border-dashed pb-1 md:pb-2">
+                        GO TO DEX</h4>
+                    <p class="font-mono text-xs md:text-lg font-bold text-[#444444] text-center">Head over to Pump.fun or Raydium — connect your wallet and join Pegon’s journey 🐉✨🚀
+</p>
+                </div>
+                <div class="brutal-box bg-[#EBDDCB] p-4 md:p-8 relative pt-12 md:pt-16 mt-6 transform rotate-1">
+                    <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-[#D19C4C] text-[#111111] font-zh-comic text-4xl flex items-center justify-center border-[5px] border-[#111111] shadow-[4px_4px_0_#111111] rounded-full icon-3d">
+                        4</div>
+                    <h4 class="font-impact text-xl md:text-3xl text-[#4A4B46] mb-2 md:mb-4 text-center border-b-[3px] md:border-b-[4px] border-[#111111] border-dashed pb-1 md:pb-2">
+                        SWAP & HODL</h4>
+                    <p class="font-mono text-xs md:text-lg font-bold text-[#444444] text-center">PPaste the CA, smash buy, and let Pegon guard your bags 🐉🛡️✨
+</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section id="live-chart" class="relative z-10 py-16 md:py-32 bg-[#FFFFFF] border-b-[6px] border-[#111111] overflow-hidden">
+        <div class="comic-dots-bg"></div>
+        <div class="max-w-7xl mx-auto px-4 md:px-6 relative z-20">
+            <div class="flex flex-col items-center mb-16">
+                <div id="chart-title" class="py-3 px-6 md:py-4 md:px-12 brutal-box bg-[#D19C4C] transform rotate-1 text-center font-impact text-3xl sm:text-4xl md:text-6xl text-[#111111] tracking-widest text-shadow-white">
+                    LIVE MARKET CHART
+                </div>
+            </div>
+
+            <div class="brutal-box bg-[#111111] p-1 lg:p-2 icon-3d overflow-hidden" style="border-radius: 20px !important;">
+                <style>
+                    #dexscreener-embed {
+                        position: relative;
+                        width: 100%;
+                        padding-bottom: 125%;
+                    }
+
+                    @media(min-width:1400px) {
+                        #dexscreener-embed {
+                            padding-bottom: 65%;
+                        }
+                    }
+
+                    #dexscreener-embed iframe {
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        top: 0;
+                        left: 0;
+                        border: 0;
+                    }
+                </style>
+                <div id="dexscreener-embed">
+                    <iframe src="https://dexscreener.com"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="relative z-10 py-16 md:py-32 bg-[#F4EAE0] border-y-[6px] border-[#111111] overflow-hidden">
+        <div class="comic-dots-bg"></div>
+        <div class="max-w-7xl mx-auto px-4 md:px-6 relative z-20">
+            <div class="flex flex-col items-center mb-20">
+                <div class="py-3 px-8 md:py-4 md:px-16 brutal-box bg-[#D19C4C] transform rotate-2 text-center">
+                    <h2 id="gallery-title" class="font-impact text-3xl sm:text-4xl md:text-6xl text-[#111111] tracking-widest text-shadow-white">
+                        MEME GALLERY
+                    </h2>
+                </div>
+                <p class="font-zh-comic text-4xl sm:text-5xl mt-6 md:mt-8 text-[#4A4B46] text-shadow-white">Pegon art & pict</p>
+            </div>
+
+            <div class="gallery-container">
+                <div class="gallery-card tilt-left color-1">
+                    <img src="images/a.jpg" alt="Meme 1">
+                </div>
+                <div class="gallery-card tilt-right color-2">
+                    <img src="images/b.jpg" alt="Meme 2">
+                </div>
+                <div class="gallery-card tilt-deep-left color-3">
+                    <img src="images/c.jpg" alt="Meme 3">
+                </div>
+                <div class="gallery-card tilt-deep-right color-1">
+                    <img src="images/d.jpg" alt="Meme 4">
+                </div>
+                <div class="gallery-card tilt-left color-2">
+                    <img src="images/e.jpg" alt="Meme 5">
+                </div>
+                <div class="gallery-card tilt-right color-3">
+                    <img src="images/f.jpg" alt="Meme 6">
+                </div>
+                <div class="gallery-card tilt-deep-left color-1">
+                    <img src="images/g.jpg" alt="Meme 7">
+                </div>
+                <div class="gallery-card tilt-deep-right color-2">
+                    <img src="images/h.jpg" alt="Meme 8">
+                </div>
+                <div class="gallery-card tilt-left color-3">
+                    <img src="images/i.jpg" alt="Meme 9">
+                </div>
+                <div class="gallery-card tilt-right color-1">
+                    <img src="images/j.jpg" alt="Meme 10">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="relative z-10 bg-[#FFFFFF] text-[#111111] py-16 border-t-[6px] border-[#111111]">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-10 text-center md:text-left">
+
+            <div class="brutal-box bg-[#EBDDCB] p-8 inline-block transform -rotate-1 icon-3d">
+                <h3 class="font-zh-comic text-6xl text-[#D19C4C] text-shadow-hard mb-2">Hiyyyooooo</h3>
+                <h3 class="font-impact text-3xl md:text-4xl text-[#111111]">WHAT THE DRAGON DOING</h3>
+            </div>
+
+            <div class="flex gap-6">
+                <a href="https://x.com/pegoncoinsol" target="_blank" class="w-20 h-20 bg-[#D19C4C] text-[#111111] flex items-center justify-center font-impact text-4xl border-[5px] border-[#111111] hover:bg-[#4A4B46] hover:text-[#FFFFFF] transition-all transform hover:scale-110 icon-3d" style="border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;">X</a>
+                <a href="https://t.me/pegoncoinportal" target="_blank" class="w-20 h-20 bg-[#FFFFFF] text-[#111111] flex items-center justify-center font-impact text-3xl border-[5px] border-[#111111] hover:bg-[#4A4B46] hover:text-[#FFFFFF] transition-all transform hover:scale-110 icon-3d" style="border-radius: 15px 255px 15px 225px/255px 15px 225px 15px;">TG</a>
+                <a href="https://dexscreener.com/solana/9rpsv1vwy6itwjihsbjrbpw2z36aeicnaiktyqtnxxcr" target="_blank" class="w-20 h-20 bg-[#4A4B46] text-[#FFFFFF] flex items-center justify-center font-impact text-3xl border-[5px] border-[#111111] hover:bg-[#D19C4C] hover:text-[#111111] transition-all transform hover:scale-110 icon-3d" style="border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;">DEX</a>
+            </div>
+        </div>
+
+        <div class="mt-16 pt-8 border-t-[5px] border-[#111111] border-dashed text-center font-mono text-xl font-bold text-[#444444] mx-6">
+            <p>NOT FINANCIAL ADVICE. PURE CUTE DRAGON. © 2026 <span class="font-zh-comic text-3xl text-[#111]">$PEGON</span>.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuLinks = document.querySelectorAll('.menu-link');
+
+        function toggleMenu() {
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+                mobileMenu.classList.add('flex');
+            } else {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+            }
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        closeMenuBtn.addEventListener('click', toggleMenu);
+        menuLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+        function copyCA() {
+            const ca = "6iA73gWCKkLWKbVr8rgibV57MMRxzsaqS9cWpgKBpump";
+            navigator.clipboard.writeText(ca);
+            alert("⚔️ CA COPIED: " + ca);
+        }
+
+        const btnGenerate = document.getElementById('btn-generate');
+        const promptInput = document.getElementById('ai-prompt');
+        const placeholder = document.getElementById('ai-placeholder');
+        const loadingState = document.getElementById('ai-loading');
+        const resultImg = document.getElementById('ai-result-img');
+        const imageUpload = document.getElementById('image-upload');
+        const uploadedPreview = document.getElementById('uploaded-preview');
+        const uploadedImg = document.getElementById('uploaded-img');
+        const removeUploadBtn = document.getElementById('remove-upload');
+        const btnDownload = document.getElementById('btn-download');
+
+        const API_URL = 'pfp-api.php';
+        const BASE_IMAGE_PATH = 'images/1.png';
+        let uploadedImageData = null;
+
+        function convertImageToBase64(imageUrl) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.crossOrigin = 'Anonymous';
+                img.onload = function () {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+                    resolve(canvas.toDataURL('image/png'));
+                };
+                img.onerror = () => {
+                    fetch(imageUrl)
+                        .then(res => res.blob())
+                        .then(blob => {
+                            const reader = new FileReader();
+                            reader.onload = () => resolve(reader.result);
+                            reader.readAsDataURL(blob);
+                        })
+                        .catch(reject);
+                };
+                img.src = imageUrl;
+            });
+        }
+
+        document.getElementById('upload-btn').addEventListener('click', function () {
+            imageUpload.click();
+        });
+
+        imageUpload.addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    uploadedImageData = e.target.result;
+                    uploadedImg.src = uploadedImageData;
+                    uploadedPreview.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        removeUploadBtn.addEventListener('click', function () {
+            uploadedImageData = null;
+            uploadedImg.src = '';
+            uploadedPreview.classList.add('hidden');
+            imageUpload.value = '';
+        });
+
+        btnGenerate.addEventListener('click', async function () {
+            const customPrompt = promptInput.value.trim();
+            if (!customPrompt) {
+                alert("ERROR: NO PROMPT DETECTED. TELL US WHAT THE DOG DOING.");
+                return;
+            }
+
+            placeholder.classList.add('hidden');
+            resultImg.classList.add('hidden');
+            btnDownload.classList.add('hidden');
+            loadingState.classList.remove('hidden');
+            btnGenerate.disabled = true;
+            btnGenerate.textContent = 'FORGING...';
+
+            try {
+                const characterBase64 = await convertImageToBase64(BASE_IMAGE_PATH);
+
+                const content = [
+                    { type: 'text', text: customPrompt },
+                    { type: 'image_url', image_url: { url: characterBase64 } }
+                ];
+
+                if (uploadedImageData) {
+                    content.push({ type: 'image_url', image_url: { url: uploadedImageData } });
+                }
+
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        model: 'google/gemini-2.5-flash-image',
+                        messages: [{
+                            role: 'user',
+                            content: content
+                        }]
+                    })
+                });
+
+                if (!response.ok) throw new Error('API Error');
+                const data = await response.json();
+
+                let imageUrl = null;
+
+                if (data.choices && data.choices[0] && data.choices[0].message) {
+                    const message = data.choices[0].message;
+
+                    if (message.images && message.images[0] && message.images[0].image_url) {
+                        imageUrl = message.images[0].image_url.url || message.images[0].image_url;
+                    }
+
+                    if (!imageUrl && message.content) {
+                        if (typeof message.content === 'string') {
+                            if (message.content.startsWith('http')) {
+                                imageUrl = message.content;
+                            }
+
+                            else if (message.content.includes('http')) {
+                                const urlMatch = message.content.match(/https?:\/\/[^\s]+/);
+                                if (urlMatch) imageUrl = urlMatch[0];
+                            }
+                        }
+
+                        else if (Array.isArray(message.content)) {
+                            const imageItem = message.content.find(item => item.type === 'image_url');
+                            if (imageItem && imageItem.image_url) {
+                                imageUrl = imageItem.image_url.url || imageItem.image_url;
+                            }
+                        }
+                    }
+                }
+
+                if (!imageUrl && data.data && data.data[0] && data.data[0].url) {
+                    imageUrl = data.data[0].url;
+                }
+
+                console.log('Extracted Image URL:', imageUrl);
+
+                if (imageUrl) {
+                    loadingState.classList.add('hidden');
+                    resultImg.src = imageUrl;
+                    resultImg.classList.remove('hidden');
+                    btnDownload.classList.remove('hidden');
+                } else {
+                    console.error('No image URL found in response:', data);
+                    throw new Error('No image returned from API');
+                }
+            } catch (error) {
+                console.error(error);
+                alert('FAILED! ' + error.message);
+                loadingState.classList.add('hidden');
+                placeholder.classList.remove('hidden');
+            } finally {
+                btnGenerate.disabled = false;
+                btnGenerate.textContent = 'FORGE WARRIOR';
+            }
+        });
+
+        // --- تم حل مشكلة التنزيل للآيفون هنا بالأسفل ---
+        btnDownload.addEventListener('click', async function () {
+            const imageUrl = resultImg.src;
+            if (!imageUrl) return;
+
+            try {
+                const response = await fetch(imageUrl);
+                const blob = await response.blob();
+
+                // فحص نوع الجهاز للتأكد إذا كان آيفون/آيباد
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+                // إذا كان الجهاز iOS ومتصفحه يدعم المشاركة (Web Share API)
+                if (isIOS && navigator.canShare) {
+                    const file = new File([blob], 'dog-warrior.png', { type: blob.type || 'image/png' });
+                    if (navigator.canShare({ files: [file] })) {
+                        try {
+                            // فتح نافذة المشاركة الخاصة بالنظام ليختار المستخدم "حفظ الصورة"
+                            await navigator.share({
+                                files: [file],
+                                title: 'Dog Warrior'
+                            });
+                            return; // تم فتح نافذة المشاركة، ينتهي التنفيذ هنا
+                        } catch (err) {
+                            console.log('تم إلغاء المشاركة أو فشلت:', err);
+                            // في حال الفشل أو الإلغاء سيكمل للتنزيل الافتراضي
+                        }
+                    }
+                }
+
+                // الكود الافتراضي للتنزيل لأجهزة الأندرويد والكمبيوتر
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'dog-warrior.png';
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(() => {
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                }, 100);
+
+            } catch (err) {
+                // في حال فشل الجلب (مثلاً لمشكلة في السيرفر أو الشبكة) يتم فتح الصورة في نافذة جديدة كحل بديل
+                const a = document.createElement('a');
+                a.href = imageUrl;
+                a.download = 'dog-warrior.png';
+                a.target = '_blank';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+        });
+
+        const musicBtn = document.getElementById('music-btn');
+        const bgMusic = document.getElementById('bg-music');
+        let isMusicPlaying = false;
+
+        function toggleMusic() {
+            if (bgMusic.paused) {
+                bgMusic.play().then(() => {
+                    isMusicPlaying = true;
+                    musicBtn.classList.add('music-playing');
+                    musicBtn.classList.remove('muted');
+                    musicBtn.innerHTML = '<span class="text-3xl">🔊</span>';
+                }).catch(err => {
+                    console.error("Autoplay prevented:", err);
+                });
+            } else {
+                bgMusic.pause();
+                isMusicPlaying = false;
+                musicBtn.classList.remove('music-playing');
+                musicBtn.classList.add('muted');
+                musicBtn.innerHTML = '<span class="text-3xl">🔇</span>';
+            }
+        }
+
+        musicBtn.addEventListener('click', toggleMusic);
+
+        document.addEventListener('click', () => {
+            if (!isMusicPlaying) {
+                bgMusic.play().then(() => {
+                    isMusicPlaying = true;
+                    musicBtn.classList.add('music-playing');
+                    musicBtn.innerHTML = '<span class="text-3xl">🔊</span>';
+                }).catch(() => { });
+            }
+        }, { once: true });
+
+        // ============ LANGUAGE TOGGLE (EN / ZH) ============
+        let currentLang = 'en';
+
+        const deepTranslations = [
+            // Marquees
+            { sel: '.marquee-strip span', map: {
+                'WHAT THE DOG DOING': '狗在做什么',
+                'MY SWORD AND SHIELD': '我的刀和盾',
+                'FORGE YOUR WEAPON': '打造你的武器',
+                'PROTECT THE BAG': '保护袋子里的钱',
+                'SMASH THE BUY BUTTON': '疯狂点击购买',
+                'NO TAXES NO BULLSHIT': '零税无套路',
+                '狗在做什么': 'WHAT THE DOG DOING',
+                '我的刀和盾': 'MY SWORD AND SHIELD',
+                '打造你的武器': 'FORGE YOUR WEAPON',
+                '保护袋子里的钱': 'PROTECT THE BAG',
+                '疯狂点击购买': 'SMASH THE BUY BUTTON',
+                '零税无套路': 'NO TAXES NO BULLSHIT',
+            }},
+            // Copy buttons
+            { sel: 'button', map: { 'COPY': '复制', '复制': 'COPY' } },
+            
+            // Lore texts
+            { sel: '#about p', html: true, eq: 0, en: 'The phrase <span class="bg-[#D19C4C] px-2 border-2 border-[#111]">“What the dog doing?”</span> comes from an old internet video. The weird grammar made it a legendary reaction meme.', zh: '“What the dog doing?”这个短语出自一段古老的短视频。怪异的语法让它成为了网络上最传奇的表情包之一。'},
+            { sel: '#about p', html: true, eq: 1, en: 'But then, <span class="text-[#D19C4C] text-stroke font-black text-xl md:text-2xl">Chinese internet culture</span> remixed it! People realized the phrase sounds exactly like:<br><span class="font-zh-comic text-xl md:text-4xl text-[#4A4B46] block mt-2 text-center">“wǒ de dāo dùn” (我的刀盾)</span>', zh: '随后，<span class="text-[#D19C4C] text-stroke font-black text-xl md:text-2xl">中国网络文化</span> 开始了二创！人们发现这句话的发音听起来完全像：<br><span class="font-zh-comic text-xl md:text-4xl text-[#4A4B46] block mt-2 text-center">“wǒ de dāo dùn” (我的刀盾)</span>' },
+            { sel: '#about blockquote', html: true, eq: 0, en: 'Which literally translates to: 👉 <strong class="text-[#D19C4C]">"My sword and shield."</strong>', zh: '字面意思是：👉 <strong class="text-[#D19C4C]">"我的刀和盾"</strong>'},
+            { sel: '#about p', html: true, eq: 2, en: 'Thanks to this phonetic mishearing, the meme evolved into a confused dog holding medieval weapons. Pure brainrot magic! 🐕⚔️', zh: '多亏了这种谐音梗，表情包进化成了一只拿着中世纪冷兵器、一脸疑惑的修狗。最纯正的赛博脑残魔力！🐕⚔️'},
+            
+            // Buy links
+            { sel: '#about .buy-link-wrap a', html: true, eq: 0, en: '<img src="pumpfun.png" alt="Pump.fun"> Buy on Pump.fun', zh: '<img src="pumpfun.png" alt="Pump.fun"> 在 Pump.fun 购买'},
+            { sel: '#about .buy-link-wrap a', html: true, eq: 1, en: '<img src="moonshot.png" alt="Moonshot"> Buy on Moonshot', zh: '<img src="moonshot.png" alt="Moonshot"> 在 Moonshot 购买'},
+            { sel: '#about .buy-link-wrap a', html: true, eq: 2, en: '<img src="fomo.webp" alt="Fomo.family"> Buy on Fomo.family', zh: '<img src="fomo.webp" alt="Fomo.family"> 在 Fomo.family 购买'},
+            
+            // Meme breakdown cards
+            { sel: '#meme-breakdown .grid > div h3', eq: 0, en: '1. Origin', zh: '1. 起源'},
+            { sel: '#meme-breakdown .grid > div p', eq: 0, en: 'The original "what the dog doin" vine is internet heritage.', zh: '最初的"what the dog doin"短视频绝对是网络非遗。'},
+            
+            { sel: '#meme-breakdown .grid > div h3', eq: 1, en: '2. The Mishearing', zh: '2. 谐音洗脑'},
+            { sel: '#meme-breakdown .grid > div p', eq: 1, en: "Chinese netizens heard 'wǒ de dāo dùn' instead.", zh: "中国网友直接给听成了“我的刀盾”。"},
+            
+            { sel: '#meme-breakdown .grid > div h3', eq: 2, en: '3. The Translation', zh: '3. 强行翻译'},
+            { sel: '#meme-breakdown .grid > div p', eq: 2, en: 'Wǒ = My, Dāo = Sword, Dùn = Shield.', zh: 'Wǒ = 我的，Dāo = 刀，Dùn = 盾。'},
+            
+            { sel: '#meme-breakdown .grid > div h3', eq: 3, en: '4. The Evolution', zh: '4. 无端进化'},
+            { sel: '#meme-breakdown .grid > div p', eq: 3, en: 'From a mint tin to an RPG boss fight.', zh: '原来是在抢薄荷糖盒，演变成了 RPG 里的史诗级 BOSS 战。'},
+            
+            { sel: '#meme-breakdown .grid > div h3', eq: 4, en: 'How People Actually Use It', zh: '人们平时怎么用'},
+            { sel: '#meme-breakdown .grid > div p', html: true, eq: 4, en: 'People spam it when something makes zero sense.<br><br><span class="bg-[#FFF] text-[#111] px-3 py-1 border-[3px] border-[#111] inline-block transform rotate-2">PURE INTERNET BRAINROT.</span>', zh: '当遇到奇葩无语、毫无逻辑的事情时就疯狂刷屏。<br><br><span class="bg-[#FFF] text-[#111] px-3 py-1 border-[3px] border-[#111] inline-block transform rotate-2">纯血统的洗脑包！</span>'},
+            
+            // Armory
+            { sel: '#ai-generator p.font-mono', eq: 0, en: 'Forge your own Dog Warrior.', zh: '铸造属于你的赛博小狗战士。'},
+            { sel: '#ai-generator .brutal-box:nth-of-type(1) > div:nth-of-type(1)', html: true, eq: 0, en: '<span class="font-zh-comic text-4xl text-[#D19C4C]">刀</span> Forge_Parameters', zh: '<span class="font-zh-comic text-4xl text-[#D19C4C]">刀</span> 锻造_参数'},
+            { sel: '#ai-generator label', eq: 0, en: 'UPLOAD ADDITIONAL IMAGE:', zh: '上传素材大头贴：'},
+            { sel: '#upload-btn', html: true, eq: 0, en: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg> UPLOAD', zh: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg> 上传照片'},
+            { sel: '#remove-upload', eq: 0, en: 'REMOVE', zh: '移除照片'},
+            { sel: '#ai-generator label', eq: 1, en: 'VISION (PROMPT):', zh: '愿景（AI提示词）：'},
+            { sel: '#ai-prompt', attr: 'placeholder', eq: 0, en: 'A chubby dog holding a glowing sword and wooden shield...', zh: '一只胖乎乎的狗拿着发光的剑和木制盾牌...'},
+            { sel: '#btn-generate', html: true, eq: 0, en: 'FORGE WARRIOR\n                        <svg class="icon-3d" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">\n                            <line x1="12" y1="12" x2="20" y2="20"></line>\n                            <path d="M14 4 L16 8 L20 10 L16 12 L14 16 L12 12 L8 10 L12 8 Z" fill="#FFFFFF"></path>\n                        </svg>', zh: '立刻铸造战士\n                        <svg class="icon-3d" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">\n                            <line x1="12" y1="12" x2="20" y2="20"></line>\n                            <path d="M14 4 L16 8 L20 10 L16 12 L14 16 L12 12 L8 10 L12 8 Z" fill="#FFFFFF"></path>\n                        </svg>'},
+            { sel: '#ai-placeholder p', eq: 0, en: 'WAITING FOR PROMPT...', zh: '等待输入指令...'},
+            { sel: '#ai-loading .font-impact', eq: 0, en: 'FORGING...', zh: '神级装备诞生中...'},
+            { sel: '#btn-download', eq: 0, en: 'DOWNLOAD WARRIOR', zh: '保存你的修狗战士'},
+
+            // Tokenomics
+            { sel: '#tokenomics .grid > div h3', eq: 0, en: '100% COM', zh: '100% 社区'},
+            { sel: '#tokenomics .grid > div p', eq: 0, en: 'OWNED BY DOGS', zh: '狗狗们全权拥有'},
+            { sel: '#tokenomics .grid > div span.font-impact', eq: 0, en: 'Supply', zh: '供应量'},
+            { sel: '#tokenomics .grid > div span.font-impact', eq: 1, en: 'Taxes', zh: '交易税'},
+            { sel: '#tokenomics .grid > div span.font-impact', eq: 2, en: 'Security', zh: '安全保障'},
+            { sel: '#tokenomics .grid > div p', eq: 1, en: 'PURE HODL', zh: '纯粹的信仰持币'},
+            { sel: '#tokenomics .grid > div h3', eq: 2, en: 'BURNED', zh: '已全销毁'},
+            { sel: '#tokenomics .grid > div p', eq: 2, en: 'RENOUNCED. NO TRICKS.', zh: '放弃权限。毫无套路。'},
+
+            // How to buy
+            { sel: '#how-to-buy .grid > div h4', eq: 0, en: 'WALLET', zh: '1. 钱包准备'},
+            { sel: '#how-to-buy .grid > div p', eq: 0, en: "Get Phantom or Solflare. Don't be a dog without a shield.", zh: "下载 Phantom 或 Solflare 钱包。不要做一只没有盾牌保护的狗。"},
+            { sel: '#how-to-buy .grid > div h4', eq: 1, en: 'GET SOL', zh: '2. 获得 SOL'},
+            { sel: '#how-to-buy .grid > div p', eq: 1, en: "Buy SOL and send it to your wallet. Gas money for the battle.", zh: "购买 SOL 并发送到钱包，作为你出征战斗的燃料。"},
+            { sel: '#how-to-buy .grid > div h4', eq: 2, en: 'GO TO DEX', zh: '3. 前往去中心化交易所'},
+            { sel: '#how-to-buy .grid > div p', eq: 2, en: "Head over to Pump.fun or Raydium. Connect your wallet.", zh: "前往 Pump.fun 或 Raydium 并连接你的钱包。"},
+            { sel: '#how-to-buy .grid > div h4', eq: 3, en: 'SWAP & HODL', zh: '4. 购买并持有'},
+            { sel: '#how-to-buy .grid > div p', eq: 3, en: "Paste the CA, smash buy, and let the dog defend your bags.", zh: "粘贴合约地址，点击买入，让我的刀盾保护你的金库！"},
+            
+            // Footer
+            { sel: '.font-mono.text-[#4A4B46]', html: true, eq: 2, en: '© 2026 What The Dog Doing. Organic viral brainrot. No cap.', zh: '© 2026 狗在做什么。纯正有机洗脑不吹牛。'}
+        ];
+
+        function toggleLang() {
+            currentLang = currentLang === 'en' ? 'zh' : 'en';
+
+            const langBtn = document.getEementById('lang-btn');
+            if (langBtn) langBtn.textContent = currentLang === 'zh' ? '中文 / EN' : 'EN / 中文';
+
+            document.querySelecorAll('[data-en][data-zh]').forEach(el => {
+                const val = currentLang === 'zh' ? el.getAttribute('data-zh') : el.getAttribute('data-en');
+                el.innerHTML = val;
+            });
+
+            const sectionTitles = {
+                'meme-explained-title':  { en: 'MEME EXPLAINED',          zh: '梗图解析' },
+                'tokenomics-title':      { en: 'TOKENOMICS',               zh: '代币经济学' },
+                'howtobuy-title':        { en: 'HOW TO BUY',               zh: '如何购买' },
+                'armory-title':          { en: 'THE ARMORY (GENERATOR)',   zh: '铸造工坊（生成器）' },
+                'chart-title':           { en: 'LIVE MARKET CHART',        zh: '实时走势图表' },
+                'gallery-title':         { en: 'MEME GALLERY',             zh: '表情包图库' },
+            };
+
+            Object.entries(sectionTitles).forEach(([id, t]) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = currentLang === 'zh' ? t.zh : t.en;
+            });
+
+            // Process deep translations
+            deepTranslations.forEach(item => {
+                const els = document.querySelectorAll(item.sel);
+                if (!els.length) return;
+                
+                let targetEl = els[0];
+                if (item.eq !== undefined && els.length > item.eq) {
+                    targetEl = els[item.eq];
+                }
+                
+                if (item.map) {
+                    // Loop through all elements matching selector
+                    els.forEach(el => {
+                        let content = el.textContent.trim();
+                        if (item.map[content]) {
+                            el.textContent = item.map[content];
+                        }
+                    });
+                } else {
+                    const text = currentLang === 'zh' ? item.zh : item.en;
+                    if (item.html) {
+                        targetEl.innerHTML = text;
+                    } else if (item.attr) {
+                        targetEl.setAttribute(item.attr, text);
+                    } else {
+                        targetEl.textContent = text;
+                    }
+                }
+            });
+
+            document.documentElement.lang = currentLang === 'zh' ? 'zh' : 'en';
+        }
+    </script>
+
+
+</body></html>
